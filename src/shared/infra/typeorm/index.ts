@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   password: environment.DB_PASSWORD,
   database: environment.DB_DATABASE,
   logging: environment.DB_LOGGING,
-  entities: [""],
+  entities: ["./src/modules/**/entities/*.ts"],
   migrations: ["./src/shared/infra/typeorm/migrations/*.ts"],
 });
 
