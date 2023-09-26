@@ -1,10 +1,10 @@
-import { ICreteProductDTO } from "@modules/dto/ICreateProductDTO";
+import { ICreteProductDTO } from "../dto/ICreateProductDTO";
 import { Product } from "../infra/typeorm/entities/Product";
-import { CustomProductsRepository } from "../infra/typeorm/repositories/ProductsRepository";
+import { ProductsRepository } from "../infra/typeorm/repositories/ProductsRepository";
 
 class CreateProductService {
   async execute({ name, price, quantity }: ICreteProductDTO): Promise<Product> {
-    const productsRepository = new CustomProductsRepository();
+    const productsRepository = new ProductsRepository();
     const productsExists = await productsRepository.findByName(name);
 
     if (productsExists) {

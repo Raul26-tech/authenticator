@@ -1,17 +1,17 @@
-import { IProductsRepsitory } from "@modules/irepositories/IProductsRepositories";
 import { Repository } from "typeorm";
 import { Product } from "../entities/Product";
 import { AppDataSource } from "@shared/infra/typeorm";
-import { ICreteProductDTO } from "@modules/dto/ICreateProductDTO";
+import { IProductsRepository } from "@modules/products/irepositories/IProductsRepositories";
+import { ICreteProductDTO } from "@modules/products/dto/ICreateProductDTO";
 
-class CustomProductsRepository implements IProductsRepsitory {
+class ProductsRepository implements IProductsRepository {
   private repository: Repository<Product>;
 
   constructor() {
     this.repository = AppDataSource.getRepository(Product);
   }
 
-  // Criando o produto
+  // Cria o produto
   async create({ name, price, quantity }): Promise<Product> {
     const createProduct = await AppDataSource.transaction(
       "SERIALIZABLE",
@@ -32,6 +32,7 @@ class CustomProductsRepository implements IProductsRepsitory {
     return createProduct;
   }
 
+  // Veridica se já existe um produto com o mesmo nome
   async findByName(name: string): Promise<Product> {
     const product = this.repository.findOne({
       where: {
@@ -41,6 +42,13 @@ class CustomProductsRepository implements IProductsRepsitory {
 
     return product;
   }
+
+  // Lista todos produtos
+  listProducts(): Promise<Product[]> {
+    const products = this.repository.find();
+
+    return products;
+  }
 }
 
-export { CustomProductsRepository };
+export { ProductsRepository };
