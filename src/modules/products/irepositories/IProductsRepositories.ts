@@ -1,9 +1,10 @@
-import { ICreteProductDTO } from "@modules/dto/ICreateProductDTO";
 import { Product } from "@modules/products/infra/typeorm/entities/Product";
+import { ICreteProductDTO } from "../dto/ICreateProductDTO";
 
-interface IProductsRepsitory {
+interface IProductsRepository {
   create(data: ICreteProductDTO): Promise<Product>;
   findByName(name: string): Promise<Product>;
+  listProducts(): Promise<Product[]>;
 }
 
-export { IProductsRepsitory };
+export { IProductsRepository };
