@@ -5,6 +5,8 @@ class CreateProductController {
   async handle(request: Request, response: Response) {
     const { name, price, quantity } = request.body;
 
+    console.log(name, price, quantity);
+
     const createProduct = new CreateProductService();
 
     const product = await createProduct.execute({
@@ -13,7 +15,7 @@ class CreateProductController {
       quantity,
     });
 
-    return response.status(201).json(product);
+    return response.status(200).json(product);
   }
 }
 
