@@ -3,6 +3,7 @@ import { Product } from "../entities/Product";
 import { AppDataSource } from "@shared/infra/typeorm";
 import { IProductsRepository } from "@modules/products/irepositories/IProductsRepositories";
 import { IUpdateProductDTO } from "@modules/products/dto/IUpdateProductDTO";
+import { ICreteProductDTO } from "@modules/products/dto/ICreateProductDTO";
 
 class ProductsRepository implements IProductsRepository {
   private repository: Repository<Product>;
@@ -12,13 +13,13 @@ class ProductsRepository implements IProductsRepository {
   }
 
   // Cria o produto
-  async create({ name, price, quantity }): Promise<Product> {
+  async create({ name, price, quantity }: ICreteProductDTO): Promise<Product> {
     const createProduct = await AppDataSource.transaction(
       "SERIALIZABLE",
       async (manager) => {
         const repository = manager.getRepository(Product);
 
-        const product = await repository.create({
+        const product = repository.create({
           name,
           price,
           quantity,
