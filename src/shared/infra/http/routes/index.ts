@@ -1,9 +1,8 @@
+import { productRoutes } from "@modules/products/infra/http/routes/products.routes";
 import { Router } from "express";
 
 const router = Router();
 
-router.use("/", () => {
-  console.log("Hello world");
-});
+router.use("/products", productRoutes);
 
 export { router };

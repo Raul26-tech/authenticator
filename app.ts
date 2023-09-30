@@ -5,6 +5,7 @@ import { router } from "./src/shared/infra/http/routes";
 import { connectDatabase } from "@typeorm/index";
 
 const app = express();
+app.use(express.json());
 
 app.use(router);
 
