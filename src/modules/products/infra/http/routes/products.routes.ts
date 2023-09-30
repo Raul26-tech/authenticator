@@ -13,8 +13,8 @@ const listAllProducts = new ListAllProductsController();
 const updateProduct = new UpdateProductController();
 const deleteProduct = new DeleteProductController();
 
-productRoutes.get("/", listProduct.handle);
-productRoutes.get("/:id", listAllProducts.handle);
+productRoutes.get("/:id", listProduct.handle);
+productRoutes.get("/", listAllProducts.handle);
 productRoutes.post("/", createProduct.handle);
 productRoutes.patch("/:id", updateProduct.handle);
 productRoutes.delete("/:id", deleteProduct.handle);
