@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import "express-async-errors";
 import express from "express";
+import "express-async-errors";
 import { router } from "./src/shared/infra/http/routes";
 import { connectDatabase } from "@typeorm/index";
 
