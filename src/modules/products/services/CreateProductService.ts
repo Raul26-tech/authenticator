@@ -11,7 +11,7 @@ class CreateProductService {
       throw new Error("Esse produto já existe com esse mesmo nome !");
     }
 
-    const product = productsRepository.create({
+    const product = await productsRepository.create({
       name,
       price,
       quantity,

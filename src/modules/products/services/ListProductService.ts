@@ -8,7 +8,7 @@ class ListProductService {
       throw new Error("Essem produto não existe !");
     }
 
-    return product.showProduct(id);
+    return await product.showProduct(id);
   }
 }
 
