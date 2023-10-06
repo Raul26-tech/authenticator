@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { ICreateUSerDTO } from "../dto/ICreateUserDTO";
 import { User } from "../infra/typeorm/entities/User";
 import { UserRepository } from "../infra/typeorm/repositories/UserRepository";
@@ -14,10 +15,15 @@ class CreateUserService {
       );
     }
 
+    // Criptografando a senha antes de criar o usuário
+    const hashedPassword = await bcrypt.hash(password, 8);
+
+    console.log(hashedPassword);
+
     const user = await userRepository.create({
       name,
       email,
-      password,
+      password: hashedPassword,
     });
 
     return user;
