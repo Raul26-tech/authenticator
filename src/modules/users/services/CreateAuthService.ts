@@ -8,7 +8,7 @@ interface IRequest {
 }
 
 class CreateSessionsService {
-  async execute({ email, password }: User) {
+  async execute({ email, password }: IRequest): Promise<User> {
     const createSession = new UserRepository();
 
     const user = await createSession.findByEmail(email);
