@@ -1,16 +1,22 @@
 import bcrypt from "bcryptjs";
+import auth from "@config/auth";
 import { User } from "../infra/typeorm/entities/User";
 import { UserRepository } from "../infra/typeorm/repositories/UserRepository";
+import { sign } from "jsonwebtoken";
 
 interface IRequest {
   email: string;
   password: string;
 }
 
-class CreateSessionsService {
-  async execute({ email, password }: User) {
-    const createSession = new UserRepository();
+interface IResponse {
+  token: string;
+  user: User;
+}
 
+class CreateSessionsService {
+  async execute({ email, password }: IRequest): Promise<IResponse> {
+    const createSession = new UserRepository();
     const user = await createSession.findByEmail(email);
 
     if (!user) {
@@ -24,7 +30,12 @@ class CreateSessionsService {
       throw new Error("Usuário ou senha incorreto(s).");
     }
 
-    return user;
+    const token = sign({}, auth.secretToken, {
+      subject: user.id,
+      expiresIn: auth.expiresToken,
+    });
+
+    return { token, user };
   }
 }
 
