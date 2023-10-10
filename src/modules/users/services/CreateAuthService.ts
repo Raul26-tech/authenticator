@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import auth from "@config/auth";
 import { User } from "../infra/typeorm/entities/User";
 import { UserRepository } from "../infra/typeorm/repositories/UserRepository";
 import { sign } from "jsonwebtoken";
@@ -29,9 +30,9 @@ class CreateSessionsService {
       throw new Error("Usuário ou senha incorreto(s).");
     }
 
-    const token = sign({}, "1d72490512d80cf240951eccf0f45c78", {
+    const token = sign({}, auth.secretToken, {
       subject: user.id,
-      expiresIn: "1d",
+      expiresIn: auth.expiresToken,
     });
 
     return { token, user };
