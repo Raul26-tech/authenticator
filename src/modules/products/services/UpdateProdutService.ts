@@ -9,7 +9,7 @@ class UpdateProductService {
       throw Error("Produto informado não foi encontrado");
     }
 
-    return product.updateProduct({
+    return await product.updateProduct({
       id,
       name,
       price,
