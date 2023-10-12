@@ -2,7 +2,7 @@
 .env
 
 # Diretories
-node_modules/
+**/node_modules
 
 # Custom
 postgres-data
