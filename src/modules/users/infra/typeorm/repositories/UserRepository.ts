@@ -3,7 +3,6 @@ import { User } from "../entities/User";
 import { AppDataSource } from "@shared/infra/typeorm";
 import { IUserRepository } from "@modules/users/irepositories/IUserRepositories";
 import { ICreateUSerDTO } from "@modules/users/dto/ICreateUserDTO";
-import { hash } from "bcrypt";
 
 class UserRepository implements IUserRepository {
   private repository: Repository<User>;
@@ -17,9 +16,6 @@ class UserRepository implements IUserRepository {
       "SERIALIZABLE",
       async (manager) => {
         const repository = manager.getRepository(User);
-
-        // Criptografando a senha para fazer o envio para o banco
-        // const hashedPassword = await hash(password, 8);
 
         const user = repository.create({
           name,
