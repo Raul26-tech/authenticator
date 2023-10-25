@@ -1,4 +1,4 @@
-import { hash } from "bcrypt";
+import { hash } from "bcryptjs";
 import { UserRepository } from "../infra/typeorm/repositories/UserRepository";
 import { UserTokensRepository } from "../infra/typeorm/repositories/UserTokensRepository";
 import { isAfter, addHours } from "date-fns";
@@ -34,6 +34,8 @@ class ResetPasswordService {
     }
 
     user.password = await hash(password, 8);
+
+    await userRepository.create(user);
   }
 }
 
