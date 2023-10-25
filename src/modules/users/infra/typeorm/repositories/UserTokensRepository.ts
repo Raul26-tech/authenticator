@@ -20,9 +20,11 @@ class UserTokensRepository {
   }
 
   async generate(user_id: string) {
-    const userToken = await this.repository.create({
+    const userToken = this.repository.create({
       user_id,
     });
+
+    await this.repository.save(userToken);
 
     return userToken;
   }

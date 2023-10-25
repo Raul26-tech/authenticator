@@ -2,11 +2,13 @@ import { ForgotPasswordService } from "@modules/users/services/ForgotPasswordSer
 import { Request, Response } from "express";
 
 class ForgotPasswordController {
-  async handle(request: Request, response: Response) {
+  async create(request: Request, response: Response) {
     const { email } = request.body;
     const sendForgotPasswordEmail = new ForgotPasswordService();
 
-    const newGenerateToken = await sendForgotPasswordEmail.execute(email);
+    await sendForgotPasswordEmail.execute(email);
+
+    return response.status(204).json();
   }
 }
 
