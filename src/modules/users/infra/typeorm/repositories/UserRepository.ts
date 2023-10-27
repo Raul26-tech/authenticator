@@ -23,8 +23,6 @@ class UserRepository implements IUserRepository {
           password,
         });
 
-        console.log(password);
-
         await repository.save(user);
 
         return user;
@@ -60,6 +58,8 @@ class UserRepository implements IUserRepository {
         email,
       },
     });
+
+    console.log("Email do usuário", email);
 
     return user;
   }

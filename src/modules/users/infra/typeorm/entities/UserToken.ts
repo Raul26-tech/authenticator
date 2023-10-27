@@ -14,12 +14,12 @@ class UserToken {
     this.id = uuidV4();
   }
 
+  @PrimaryColumn()
+  id: string;
+
   @Column()
   @Generated("uuid")
   token: string;
-
-  @PrimaryColumn()
-  id: string;
 
   @Column()
   user_id: string;
