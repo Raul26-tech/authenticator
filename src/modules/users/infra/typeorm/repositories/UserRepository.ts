@@ -3,7 +3,6 @@ import { User } from "../entities/User";
 import { AppDataSource } from "@shared/infra/typeorm";
 import { IUserRepository } from "@modules/users/irepositories/IUserRepositories";
 import { ICreateUSerDTO } from "@modules/users/dto/ICreateUserDTO";
-import { hash } from "bcrypt";
 
 class UserRepository implements IUserRepository {
   private repository: Repository<User>;
@@ -18,16 +17,11 @@ class UserRepository implements IUserRepository {
       async (manager) => {
         const repository = manager.getRepository(User);
 
-        // Criptografando a senha para fazer o envio para o banco
-        // const hashedPassword = await hash(password, 8);
-
         const user = repository.create({
           name,
           email,
           password,
         });
-
-        console.log(password);
 
         await repository.save(user);
 
@@ -36,6 +30,12 @@ class UserRepository implements IUserRepository {
     );
 
     return createUser;
+  }
+
+  async save(data: ICreateUSerDTO): Promise<User> {
+    const user = this.repository.save(data);
+
+    return user;
   }
 
   async findByName(name: string): Promise<User> {
@@ -64,6 +64,8 @@ class UserRepository implements IUserRepository {
         email,
       },
     });
+
+    console.log("Email do usuário", email);
 
     return user;
   }

@@ -24,7 +24,6 @@ class CreateSessionsService {
     }
 
     const passwordConfirm = bcrypt.compare(password, user.password);
-    console.log(passwordConfirm);
 
     if (!passwordConfirm) {
       throw new Error("Usuário ou senha incorreto(s).");
