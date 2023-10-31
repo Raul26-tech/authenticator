@@ -21,14 +21,14 @@ class UserToken {
   @Generated("uuid")
   token: string;
 
-  @Column()
-  user_id: string;
-
   @CreateDateColumn({ name: "created_at" })
   createAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
+
+  @Column()
+  user_id: string;
 }
 
 export { UserToken };
