@@ -1,5 +1,6 @@
 import { UserRepository } from "../infra/typeorm/repositories/UserRepository";
 import { UserTokensRepository } from "../infra/typeorm/repositories/UserTokensRepository";
+import { EtherialEmail } from "@config/mail/EtherialEmail";
 
 interface IRequest {
   email: string;
@@ -9,6 +10,9 @@ class ForgotPasswordService {
   async execute({ email }: IRequest) {
     const userRepository = new UserRepository();
     const userTokenRepository = new UserTokensRepository();
+    const etherialEmail = new EtherialEmail();
+
+    console.log("EMAILLL", email);
 
     const user = await userRepository.findByEmail(email);
 
@@ -22,7 +26,10 @@ class ForgotPasswordService {
 
     console.log(token);
 
-    return user;
+    await etherialEmail.sendEmail({
+      to: email,
+      body: `Solicitação de redefinição de senha recebida: ${token}`,
+    });
   }
 }
 
