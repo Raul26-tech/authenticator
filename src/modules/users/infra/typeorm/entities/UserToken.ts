@@ -14,21 +14,21 @@ class UserToken {
     this.id = uuidV4();
   }
 
-  @Column()
-  @Generated("uuid")
-  token: string;
-
   @PrimaryColumn()
   id: string;
 
   @Column()
-  user_id: string;
+  @Generated("uuid")
+  token: string;
 
   @CreateDateColumn({ name: "created_at" })
   createAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
+
+  @Column()
+  user_id: string;
 }
 
 export { UserToken };

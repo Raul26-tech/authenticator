@@ -18,9 +18,9 @@ class ForgotPasswordService {
       );
     }
 
-    const teste = await userTokenRepository.generate(user.id);
+    const token = await userTokenRepository.generate(user.id);
 
-    console.log(teste);
+    console.log(token);
 
     return user;
   }

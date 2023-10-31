@@ -23,8 +23,6 @@ class UserRepository implements IUserRepository {
           password,
         });
 
-        console.log(password);
-
         await repository.save(user);
 
         return user;
@@ -32,6 +30,12 @@ class UserRepository implements IUserRepository {
     );
 
     return createUser;
+  }
+
+  async save(data: ICreateUSerDTO): Promise<User> {
+    const user = this.repository.save(data);
+
+    return user;
   }
 
   async findByName(name: string): Promise<User> {
@@ -60,6 +64,8 @@ class UserRepository implements IUserRepository {
         email,
       },
     });
+
+    console.log("Email do usuário", email);
 
     return user;
   }
