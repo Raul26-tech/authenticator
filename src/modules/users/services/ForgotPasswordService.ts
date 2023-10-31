@@ -12,8 +12,6 @@ class ForgotPasswordService {
     const userTokenRepository = new UserTokensRepository();
     const etherialEmail = new EtherialEmail();
 
-    console.log("EMAILLL", email);
-
     const user = await userRepository.findByEmail(email);
 
     if (!user) {
@@ -24,11 +22,9 @@ class ForgotPasswordService {
 
     const token = await userTokenRepository.generate(user.id);
 
-    console.log(token);
-
     await etherialEmail.sendEmail({
       to: email,
-      body: `Solicitação de redefinição de senha recebida: ${token}`,
+      body: `Solicitação de redefinição de senha recebida: ${token.token}`,
     });
   }
 }
