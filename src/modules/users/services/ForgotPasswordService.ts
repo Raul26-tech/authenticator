@@ -20,11 +20,21 @@ class ForgotPasswordService {
       );
     }
 
-    const token = await userTokenRepository.generate(user.id);
+    const { token } = await userTokenRepository.generate(user.id);
 
     await etherialEmail.sendEmail({
-      to: email,
-      body: `Solicitação de redefinição de senha recebida: ${token.token}`,
+      to: {
+        name: user.name,
+        address: user.email,
+      },
+      subject: "[API vendas] Recuperação de senha",
+      templateData: {
+        template: `Olá {{name}}: {{token}}`,
+        variables: {
+          name: user.name,
+          token,
+        },
+      },
     });
   }
 }
