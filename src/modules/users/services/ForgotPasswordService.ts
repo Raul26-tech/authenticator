@@ -1,3 +1,4 @@
+import path, { resolve } from "path";
 import { UserRepository } from "../infra/typeorm/repositories/UserRepository";
 import { UserTokensRepository } from "../infra/typeorm/repositories/UserTokensRepository";
 import { EtherialEmail } from "@config/mail/EtherialEmail";
@@ -22,6 +23,12 @@ class ForgotPasswordService {
 
     const { token } = await userTokenRepository.generate(user.id);
 
+    const forgotPasswordTemplate = resolve(
+      "views",
+      "emails",
+      "forgotPassword.hbs"
+    );
+
     await etherialEmail.sendEmail({
       to: {
         name: user.name,
@@ -29,10 +36,10 @@ class ForgotPasswordService {
       },
       subject: "[API vendas] Recuperação de senha",
       templateData: {
-        template: `Olá {{name}}: {{token}}`,
+        file: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          token,
+          link: `http://localhost:3000/reset_password?token=${token}`,
         },
       },
     });

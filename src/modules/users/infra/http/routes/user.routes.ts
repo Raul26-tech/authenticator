@@ -9,6 +9,7 @@ import { UpdateUserAvatarController } from "../controllers/UpdateUserAvatarContr
 const usersRoutes = Router();
 
 const createUser = new UsersController();
+
 const listUsers = new ListUserController();
 const updateUseravatar = new UpdateUserAvatarController();
 
