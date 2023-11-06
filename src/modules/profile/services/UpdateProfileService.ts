@@ -18,14 +18,15 @@ class UpdateProfileService {
     }
 
     if (password && !old_password) {
-      throw new Error("É necessário informar a senha sua senha anterior");
+      throw new Error("É necessário informar a senha antiga");
     }
 
     if (password && old_password) {
       const checkPassword = await compare(old_password, user.password);
+      console.log({ password: password, oldPassword: old_password });
 
       if (!checkPassword) {
-        throw new Error("A senha está incorreta");
+        throw new Error("A senha informada está incorreta");
       }
 
       user.password = await hash(password, 8);
