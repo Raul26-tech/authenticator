@@ -1,4 +1,4 @@
-import { ShowProfileService } from "@modules/users/services/ShowProfileService";
+import { ShowProfileService } from "@modules/profile/services/ShowProfileService";
 import { Request, Response } from "express";
 
 class ShowProfileController {

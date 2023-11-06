@@ -1,4 +1,4 @@
-import { UserRepository } from "../infra/typeorm/repositories/UserRepository";
+import { UserRepository } from "../../users/infra/typeorm/repositories/UserRepository";
 
 class ShowProfileService {
   async execute(id: string) {
