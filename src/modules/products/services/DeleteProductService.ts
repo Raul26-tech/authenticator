@@ -8,7 +8,7 @@ class DeleteProductService {
       throw new Error("Produto não foi informado");
     }
 
-    return product.deleteProduct(id);
+    return await product.deleteProduct(id);
   }
 }
 
