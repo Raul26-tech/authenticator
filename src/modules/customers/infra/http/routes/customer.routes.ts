@@ -14,10 +14,11 @@ const showCustomer = new ShowCustomerController();
 const updateCustomer = new UpdateCustomerController();
 const deleteCustomer = new DeleteCustomerController();
 
-customerRoutes.post("/", isAuthenticated, createCustomer.handle);
-customerRoutes.get("/:id", isAuthenticated, showCustomer.handle);
-customerRoutes.get("/", isAuthenticated, listCustomers.handle);
-customerRoutes.patch("/:id", isAuthenticated, updateCustomer.handle);
-customerRoutes.delete("/:id", isAuthenticated, deleteCustomer.handle);
+customerRoutes.use(isAuthenticated);
+customerRoutes.post("/", createCustomer.handle);
+customerRoutes.patch("/:id", updateCustomer.handle);
+customerRoutes.delete("/:id", deleteCustomer.handle);
+customerRoutes.get("/:id", showCustomer.handle);
+customerRoutes.get("/", listCustomers.handle);
 
 export { customerRoutes };

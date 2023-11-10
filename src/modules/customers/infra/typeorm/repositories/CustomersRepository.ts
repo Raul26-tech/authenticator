@@ -84,8 +84,7 @@ class CustomerRepository implements ICustomerRepository {
   }
 
   async deleteCustomer(id: string) {
-    const customer = await this.repository.findOne({ where: { id } });
-    console.log(customer);
+    const customer = await this.findById(id);
 
     await this.repository.remove(customer);
   }

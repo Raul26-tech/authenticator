@@ -10,7 +10,7 @@ class DeleteCustomerService {
       throw new Error("Usuário não foi informado");
     }
 
-    return await customerRepository.deleteCustomer(id);
+    await customerRepository.deleteCustomer(id);
   }
 }
 

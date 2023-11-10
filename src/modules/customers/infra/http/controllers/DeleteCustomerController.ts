@@ -8,7 +8,7 @@ class DeleteCustomerController {
 
     await deleteCustomerService.execute(id);
 
-    return response.status(200);
+    return response.json([]);
   }
 }
 
