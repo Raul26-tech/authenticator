@@ -4,10 +4,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
+import { OrdersProducts } from "./OrderProducts";
 
 @Entity("orders")
 class Order {
@@ -21,6 +23,11 @@ class Order {
   @ManyToOne(() => Customer)
   @JoinColumn({ name: "customer_id" })
   customer: Customer;
+
+  @OneToMany(() => OrdersProducts, (order_products) => order_products.order, {
+    cascade: true,
+  })
+  order_products: OrdersProducts[];
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
