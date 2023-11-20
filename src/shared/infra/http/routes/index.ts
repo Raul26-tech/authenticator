@@ -5,6 +5,7 @@ import { profileRoute } from "@modules/profile/infra/http/routes/profileUser.rou
 import { authRoutes } from "@modules/users/infra/http/routes/auth.routes";
 import { passwordRouter } from "@modules/users/infra/http/routes/password.routes";
 import { usersRoutes } from "@modules/users/infra/http/routes/user.routes";
+import { orderRoutes } from "@modules/orders/infra/http/routes/orders.routes";
 
 const router = Router();
 
@@ -15,5 +16,6 @@ router.use("/password", passwordRouter);
 router.use("/reset", passwordRouter);
 router.use("/products", productRoutes);
 router.use("/customers", customerRoutes);
+router.use("/orders", orderRoutes);
 
 export { router };

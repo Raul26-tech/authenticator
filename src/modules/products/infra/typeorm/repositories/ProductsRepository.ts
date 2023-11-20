@@ -1,9 +1,11 @@
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { Product } from "../entities/Product";
 import { AppDataSource } from "@shared/infra/typeorm";
 import { IProductsRepository } from "@modules/products/irepositories/IProductsRepositories";
 import { IUpdateProductDTO } from "@modules/products/dto/IUpdateProductDTO";
 import { ICreteProductDTO } from "@modules/products/dto/ICreateProductDTO";
+import { IProductsIdsDTO } from "@modules/products/dto/IProductsIds.DTO";
+import { ISaveProductDTO } from "@modules/products/dto/ISaveProductDTO";
 
 class ProductsRepository implements IProductsRepository {
   private repository: Repository<Product>;
@@ -13,24 +15,14 @@ class ProductsRepository implements IProductsRepository {
   }
 
   // Cria o produto
-  async create({ name, price, quantity }: ICreteProductDTO): Promise<Product> {
-    const createProduct = await AppDataSource.transaction(
-      "SERIALIZABLE",
-      async (manager) => {
-        const repository = manager.getRepository(Product);
+  async create({ name, price, quantity }: ICreteProductDTO) {
+    const product = await this.repository.save({
+      name,
+      price,
+      quantity,
+    });
 
-        const product = repository.create({
-          name,
-          price,
-          quantity,
-        });
-
-        await repository.save(product);
-        return product;
-      }
-    );
-
-    return createProduct;
+    return product;
   }
 
   // Veridica se já existe um produto com o mesmo nome
@@ -90,6 +82,20 @@ class ProductsRepository implements IProductsRepository {
     });
 
     await this.repository.remove(product);
+  }
+
+  async findByIds(products: Product[]) {
+    const filteredIds = products.map((product) => product.id);
+
+    console.log(filteredIds);
+
+    const existProducts = this.repository.find({
+      where: {
+        id: In(filteredIds),
+      },
+    });
+
+    return existProducts;
   }
 }
 
